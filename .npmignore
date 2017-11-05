@@ -9,3 +9,4 @@ static/
 .postcssrc.js
 index.html
 selenium-debug.log
+release.js
