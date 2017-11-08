@@ -3,13 +3,13 @@
 </template>
 
 <script >
-// import vueCloudManager from './components/vueCloudManager/vueCloudManager';
+import vueCloudManager from './components/vueCloudManager/vueCloudManager';
 
-// export default {
-//   components: {
-//     vueCloudManager
-//   }
-// };
+export default {
+  components: {
+    vueCloudManager
+  }
+};
 </script>
 
 <style>

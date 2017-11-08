@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import App from './App';
-import vueCloudManager from '../dist/vue-cloud-manager';
+// import vueCloudManager from '../dist/vue-cloud-manager'; // test
 
-Vue.use(vueCloudManager);
+// Vue.use(vueCloudManager); // test
 
 Vue.config.productionTip = false;
 

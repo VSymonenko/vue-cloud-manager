@@ -1,7 +1,66 @@
 const fs = require('fs')
-const updater = require('jsonfile-updater')
 const { exec } = require('child_process')
 const chalk = require('chalk')
+
+/* run test */
+test = () => {
+  return new Promise((resolve, reject) => {
+    exec('npm run test', (error, stdout, stderr) => {
+      if (error instanceof Error) {
+          console.error(error)
+          throw error
+      }
+      // console.log('stdout: ', stdout)
+      if (stderr.length == 0) {
+        console.log('\n' + 'Test ok' + '\n')
+        resolve(true)
+      }
+    })
+  })
+}
+
+// /* update package version*/
+newVersion = () => {
+  const ver = JSON.parse(fs.readFileSync('./package.json')).version
+  return version = ver.slice(0, 4) + (parseInt(ver[4] + ver[5]) + 1)
+}
+
+var version = newVersion()
+
+updatePackageVersion = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile('./package.json', 'utf8', function readFileCallback(err, data) {
+      if (err) {
+        console.log(err)
+      } else {
+        obj = JSON.parse(data)
+        obj.version = version
+        json = JSON.stringify(obj, null, 2)
+        fs.writeFile('package.json', json, 'utf8', (cb) => {
+          console.log('\n' + 'Realese version: ' + version + '\n')
+          resolve(true)
+        })
+      }
+    })
+  })
+}
+
+/* build component*/
+build = () => {
+  return new Promise((resolve, reject) => {
+    exec('node build/building-lib.js', (error, stdout, stderr) => {
+      if (error instanceof Error) {
+        console.error(error)
+        throw error
+      }
+      console.log('stdout: ', stdout)
+      if (stderr.length == 0) {
+        console.log('Component build done.' + '\n')
+        resolve(true)
+      }
+    })
+  })
+}
 
 /* publish */
 npmPublish = () => {
@@ -28,7 +87,7 @@ gitAdd = () => {
         console.error(error)
         throw error
       }
-      if (stderr.length === 0) {
+      if (stderr.length == 0) {
         console.log('Add all file.' + '\n')
         resolve(true)
       }
@@ -38,7 +97,7 @@ gitAdd = () => {
 
 gitCommit = () => {
   return new Promise((resolve, reject) => {
-    exec('git commit -m \"release: ' + version + '\"', (error, stdout, stderr)=> {
+    exec('git commit -m \"release: ' + version + '\"', (error, stdout, stderr) => {
       if (error instanceof Error) {
         console.error(error)
         throw error
@@ -71,37 +130,14 @@ success = () => {
 }
 
 publish = async () => {
+  await test()
+  await updatePackageVersion()
   await gitAdd()
   await gitCommit()
   await gitPush()
+  await build()
   await npmPublish()
   success()
 }
 
-// /* update package version*/
-newVersion = () => {
-  const ver = JSON.parse(fs.readFileSync('./package.json')).version
-  return version = ver.slice(0, 4) + (parseInt(ver[4]) + 1)
-}
-
-var version = newVersion()
-
-updatePackageVersion = () => { updater('./package.json').set('version', version, function(err) {
-    if (err) return console.log(err)
-      console.log('\n' + 'Realese version: ' + version + '\n')
-      publish()
-  })
-}
-
-/* run test */
-exec('npm run test', (error, stdout, stderr) => {
-  if (error instanceof Error) {
-      console.error(error)
-      throw error
-  }
-  // console.log('stdout: ', stdout)
-  if (stderr.length == 0) {
-    console.log('Test ok' + '\n')
-    updatePackageVersion()
-  }
-})
+publish()

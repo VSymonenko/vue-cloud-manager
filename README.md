@@ -1,6 +1,6 @@
 # vue-cloud-manager
 
-> Simple file manager. Based on [PWA](https://github.com/vuejs-templates/pwa) template
+> Simple file manager. Based on [PWA](https://github.com/vuejs-templates/pwa) template.
 
 ## Installation
 
