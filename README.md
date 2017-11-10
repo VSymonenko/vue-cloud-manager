@@ -30,6 +30,9 @@ use tag
 # clone project
 git clone https://github.com/VSymonenko/vue-cloud-manager.git
 
+# go to folder
+cd vue-cloud-manager
+
 # install dependencies
 npm install
 

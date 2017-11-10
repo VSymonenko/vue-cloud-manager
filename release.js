@@ -117,6 +117,9 @@ gitPush = () => {
         console.error(error)
         throw error
       }
+      console.log('error: ', error)
+      console.log('stdout: ', stdout)
+      console.log('stderr: ', stderr)
       if (stderr.length == 0) {
         console.log('Push done.' + '\n')
         resolve(true)
