@@ -1,6 +1,6 @@
 {
   "name": "vue-cloud-manager",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Simple file manager.",
   "author": "Volodymyr Symonenko",
   "main": "dist/vue-cloud-manager.js",
@@ -19,7 +19,8 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "vue": "^2.3.3"
+    "vue": "^2.3.3",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

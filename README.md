@@ -54,3 +54,9 @@ npm run e2e
 # run all tests
 npm test
 ```
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2017 VSymonenko

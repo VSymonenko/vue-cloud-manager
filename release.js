@@ -1,10 +1,28 @@
 const fs = require('fs')
 const { exec } = require('child_process')
 const chalk = require('chalk')
+const ora = require('ora')
+const spinner = ora()
+
+/* start */
+start = () => {
+  return new Promise((resolve, reject) => {
+    exec('@echo off', (error, stdout, stderr) => {
+      if (error instanceof Error) {
+          console.error(error)
+          throw error
+      }
+      process.stdout.write('\033c')
+      process.stdout.write('\r\n')
+      resolve(true)
+    })
+  })
+}
 
 /* run test */
 test = () => {
   return new Promise((resolve, reject) => {
+    spinner.start('testing...')
     exec('npm run test', (error, stdout, stderr) => {
       if (error instanceof Error) {
           console.error(error)
@@ -12,7 +30,8 @@ test = () => {
       }
       // console.log('stdout: ', stdout)
       if (stderr.length == 0) {
-        console.log('\n' + 'Test ok' + '\n')
+        spinner.succeed('Testing passed ok')
+        process.stdout.write('\r\n')
         resolve(true)
       }
     })
@@ -37,7 +56,7 @@ updatePackageVersion = () => {
         obj.version = version
         json = JSON.stringify(obj, null, 2)
         fs.writeFile('package.json', json, 'utf8', (cb) => {
-          console.log('\n' + 'Realese version: ' + version + '\n')
+          spinner.succeed('Realese version: ' + version + '\n')
           resolve(true)
         })
       }
@@ -47,15 +66,16 @@ updatePackageVersion = () => {
 
 /* build component*/
 build = () => {
+  spinner.start('building...')
   return new Promise((resolve, reject) => {
     exec('node build/building-lib.js', (error, stdout, stderr) => {
       if (error instanceof Error) {
         console.error(error)
         throw error
       }
-      console.log('stdout: ', stdout)
       if (stderr.length == 0) {
-        console.log('Component build done.' + '\n')
+        spinner.stop()
+        console.log(stdout) 
         resolve(true)
       }
     })
@@ -64,15 +84,16 @@ build = () => {
 
 /* publish */
 npmPublish = () => {
+  spinner.start('publish...')
   return new Promise((resolve, reject) => {
     exec('npm publish', (error, stdout, stderr) => {
       if (error instanceof Error) {
           console.error(error)
           throw error
       }
-      console.log('stdout: ', stdout)
+      console.log(stdout)
       if (stderr.length == 0) {
-        console.log('Publish npm package.' + '\n')
+        spinner.succeed('Publish npm package done.' + '\n')
         resolve(true)
       }
     })
@@ -88,7 +109,7 @@ gitAdd = () => {
         throw error
       }
       if (stderr.length == 0) {
-        console.log('Add all file.' + '\n')
+        spinner.succeed('Add all file to repository.' + '\n')
         resolve(true)
       }
     })
@@ -103,7 +124,7 @@ gitCommit = () => {
         throw error
       }
       if (stderr.length == 0) {
-        console.log('Commit done.' + '\n')
+        spinner.succeed('Commit done.' + '\n')
         resolve(true)
       }
     })
@@ -117,11 +138,8 @@ gitPush = () => {
         console.error(error)
         throw error
       }
-      console.log('error: ', error)
-      console.log('stdout: ', stdout)
-      console.log('stderr: ', stderr)
-      if (stderr.length == 0) {
-        console.log('Push done.' + '\n')
+      if (error == null) {
+        spinner.succeed('Push done.' + '\n')
         resolve(true)
       }
     })
@@ -129,10 +147,11 @@ gitPush = () => {
 }
 
 success = () => {
-  console.log(chalk.green('New version ' + version + ' released.' + '\n'))
+  console.log(chalk.green('New version ' + version + ' released!' + '\n'))
 }
 
 publish = async () => {
+  await start()
   await test()
   await updatePackageVersion()
   await gitAdd()

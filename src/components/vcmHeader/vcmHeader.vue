@@ -9,7 +9,7 @@ export default {
   data: () => ({
     toolBar: ['open', 'rename', 'copy', 'delete']
   })
-};
+}
 </script>
 
 <style scoped>
