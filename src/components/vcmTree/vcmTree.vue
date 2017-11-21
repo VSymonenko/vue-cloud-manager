@@ -1,28 +1,23 @@
 <template>
-  <div :class="{'vcm-tree': !first}" v-if="ordered">
-    <button @click.stop="selectFolder(model)" v-toggle>
-      <div class="treeFolder">{{ (model.name == 'VUE-CLOUD-MANAGER') ? 'cloud' : 'folder'}}</div>&nbsp;{{model.name}}
-    </button>
+  <div :class="{'vcm-tree': !first, 'highlight': first}" v-if="ordered">
+    <vcm-button @click.native.stop="selectFolder($el)"
+      :iconSVG="(model.name == 'VUE-CLOUD-MANAGER') ? icon.cloud18 : icon.folder18"
+      :buttonName="model.name"
+      :style="{'padding-left': folderLag}">
+    </vcm-button>
     <ul v-show="open || !first">
-      <vcm-tree  class="item" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-tree>
+      <vcm-tree v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-tree>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import vcmButton from '../vcmButton/vcmButton'
 
 export default {
-  directives: {
-    toggle: {
-      // componentUpdated: function (el) {
-      //   let item = document.querySelectorAll('.toggleBtn')
-      //   _.each(item, function (item) {
-      //     item.classList.remove('toggleBtn')
-      //   }),
-      //   el.classList.add('toggleBtn')
-      // }
-    }
+  components: {
+    vcmButton
   },
   name: 'vcm-tree',
   props: {
@@ -31,7 +26,8 @@ export default {
   },
   data: () => ({
     first: false,
-    open: false
+    open: false,
+    folderLag: 0
   }),
   methods: { ...mapActions([
   ]),
@@ -66,7 +62,9 @@ export default {
       }
     }
   },
-  computed: {
+  computed: { ...mapGetters([
+    'icon'
+  ]),
     isFolder() {
       return this.model.children && this.model.children.length
     },
@@ -76,10 +74,11 @@ export default {
   },
   mounted() {
     if (this.generateComponentTrace(this).length > 0) this.first = !this.first
+    this.folderLag = (this.generateComponentTrace(this) * 10) + 'px'
   }
 }
 </script>
 
-<style scoped>
-  @import './vcmTree.scss';
+<style lang="scss">
+  @import './vcmTree.scss'
 </style>

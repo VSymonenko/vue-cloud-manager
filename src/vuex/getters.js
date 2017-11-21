@@ -1,3 +1,4 @@
 export default {
-  defaultTree: state => state.defaultTree
+  defaultTree: state => state.defaultTree,
+  icon: state => state.icon
 }

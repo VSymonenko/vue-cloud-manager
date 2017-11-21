@@ -75,7 +75,7 @@ build = () => {
       }
       if (stderr.length == 0) {
         spinner.stop()
-        console.log(stdout) 
+        console.log(stdout)
         resolve(true)
       }
     })
@@ -91,9 +91,10 @@ npmPublish = () => {
           console.error(error)
           throw error
       }
-      console.log(stdout)
+      // console.log(stdout)
       if (stderr.length == 0) {
-        spinner.succeed('Publish npm package done.' + '\n')
+        spinner.stop()
+        console.log(stdout)
         resolve(true)
       }
     })
