@@ -4,8 +4,8 @@
   background: #E0E0E0;
   flex: 1 6 20%;
   order: 1;
-  width: calc(20%);
-  overflow: hidden;
+  max-width: 20%;
+  min-width: 20%;
 }
 ul {
   margin: 0;

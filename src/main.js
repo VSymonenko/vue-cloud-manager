@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: '#vue-cloud-manager',
   store,
   render: h => h(App)
 })

@@ -3,7 +3,7 @@
     <vcm-header/>
     <main>
       <vcm-tree :model="tree"/>
-      <vcm-content/>
+      <vcm-content :model="treeContent"/>
       <vcm-history/>
     </main>
     <vcm-footer/>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import vcmContent from '../vcmContent/vcmContent'
 import vcmFooter from '../vcmFooter/vcmFooter'
 import vcmHeader from '../vcmHeader/vcmHeader'
@@ -19,16 +19,22 @@ import vcmHistory from '../vcmHistory/vcmHistory'
 import vcmTree from '../vcmTree/vcmTree'
 
 export default {
-  computed: { ...mapGetters([
-    'defaultTree'
-  ])
+  methods: {
+    ...mapActions([
+      'updateTreeState'
+    ])
   },
-  data: () => ({
-    tree: {}
-  }),
+  computed: {
+    ...mapGetters([
+      'defaultTree',
+      'tree',
+      'treeContent'
+    ])
+  },
   props: {
     simple: {
-      type: Object
+      type: Object,
+      default: null
     }
   },
   name: 'vue-cloud-manager',
@@ -40,11 +46,11 @@ export default {
     vcmTree
   },
   mounted() {
-    this.tree = this.defaultTree
+    this.simple ? this.updateTreeState(this.simple) : this.updateTreeState(this.defaultTree)
   }
 }
 </script>
 
-<style scoped>
+<style >
   @import './vueCloudManager.scss';
 </style>

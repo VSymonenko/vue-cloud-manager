@@ -1,5 +1,5 @@
 <template>
-  <div id="vsc-footer">
+  <div id="vcm-footer">
     info
   </div>
 </template>
