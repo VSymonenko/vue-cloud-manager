@@ -20,8 +20,6 @@ export const store = new Vuex.Store({
       createDate: 0,
       modifiedTime: 0,
       modifiedDate: 0,
-      status: '',
-      flow: '',
       children: [
         {
           id: 1,
@@ -30,8 +28,6 @@ export const store = new Vuex.Store({
           createDate: 0,
           modifiedTime: 0,
           modifiedDate: 0,
-          status: '',
-          flow: '',
           children: [{
             id: 2,
             name: 'Fork Template 2 level',
@@ -39,8 +35,6 @@ export const store = new Vuex.Store({
             createDate: 0,
             modifiedTime: 0,
             modifiedDate: 0,
-            status: '',
-            flow: '',
             children: [{
               id: 3,
               name: 'Fork Template 3 level',
@@ -48,8 +42,6 @@ export const store = new Vuex.Store({
               createDate: 0,
               modifiedTime: 0,
               modifiedDate: 0,
-              status: '',
-              flow: '',
               children: [{
                 id: 4,
                 name: 'Fork Template 4 level',
@@ -57,8 +49,6 @@ export const store = new Vuex.Store({
                 createDate: 0,
                 modifiedTime: 0,
                 modifiedDate: 0,
-                status: '',
-                flow: '',
                 children: [{
                   id: 5,
                   name: 'Fork Template 5 level',
@@ -66,8 +56,6 @@ export const store = new Vuex.Store({
                   createDate: 0,
                   modifiedTime: 0,
                   modifiedDate: 0,
-                  status: '',
-                  flow: '',
                   children: [{
                     id: 6,
                     name: 'Fork Template 6 level',
@@ -75,8 +63,6 @@ export const store = new Vuex.Store({
                     createDate: 0,
                     modifiedTime: 0,
                     modifiedDate: 0,
-                    status: '',
-                    flow: '',
                     children: []
                   }]
                 }]
@@ -90,8 +76,6 @@ export const store = new Vuex.Store({
             createDate: 0,
             modifiedTime: 0,
             modifiedDate: 0,
-            status: '',
-            flow: '',
             children: []
           },
           {
@@ -100,9 +84,7 @@ export const store = new Vuex.Store({
             createTime: 0,
             createDate: 0,
             modifiedTime: 0,
-            modifiedDate: 0,
-            status: '',
-            flow: ''
+            modifiedDate: 0
           }
           ]
         },
@@ -113,8 +95,6 @@ export const store = new Vuex.Store({
           createDate: 0,
           modifiedTime: 0,
           modifiedDate: 0,
-          status: '',
-          flow: '',
           children: [
             {
               id: 10,
@@ -122,9 +102,7 @@ export const store = new Vuex.Store({
               createTime: 0,
               createDate: 0,
               modifiedTime: 0,
-              modifiedDate: 0,
-              status: '',
-              flow: ''
+              modifiedDate: 0
             }
           ]
         },
@@ -134,9 +112,7 @@ export const store = new Vuex.Store({
           createTime: 0,
           createDate: 0,
           modifiedTime: 0,
-          modifiedDate: 0,
-          status: '',
-          flow: ''
+          modifiedDate: 0
         }
       ]
     },

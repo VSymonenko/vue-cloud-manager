@@ -49,11 +49,10 @@ module.exports = {
     'no-shadow': 0,
     'no-param-reassign': 0,
     'consistent-return': 0,
-    // generate component
     'vars-on-top': 0,
-    // 'no-var': 0,
     'prefer-const': 0,
     'prefer-destructuring': 0,
-    'no-case-declarations': 0
+    'no-case-declarations': 0,
+    'arrow-parens': 0
   }
 }

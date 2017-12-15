@@ -1,12 +1,13 @@
 <template>
   <div :class="{'vcm-tree': !first}" v-if="ordered">
-    <vcm-button @click.native.stop="selectFolder(model)"
-      :svgContent="(model.name == 'VUE-CLOUD-MANAGER') ? icon.cloud18 : icon.folder18"
-      :style="{'padding-left': folderLag}"
-      buttonClass="vcm-tree-folder">
-        <span class="btnText">&nbsp;{{model.name}}</span>
+    <vcm-button 
+      @click.native.stop = "selectFolder(model)"
+      :svgContent        = "(model.name == 'VUE-CLOUD-MANAGER') ? icon.cloud18 : icon.folder18"
+      :style             = "{'padding-left': folderLag}"
+      buttonClass        = "vcm-tree-folder">
+      <span class="btnText">&nbsp;{{model.name}}</span>
     </vcm-button>
-    <vcm-tree v-if="open || !first" v-for="(model, key, index) in ordered" :model="model" :key="index" v-model="status" v-bind="props"></vcm-tree>
+    <vcm-tree v-if="open || !first" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-tree>
   </div>
 </template>
 
@@ -15,8 +16,6 @@ import { mapActions, mapGetters } from 'vuex'
 import vcmButton from '../vcmButton/vcmButton'
 import generateComponentTrace from '../../core/utils/helpler'
 
-/* eslint-disable no-var */
-/* eslint-disable no-unused-vars */
 const filters = {
   /* eslint-disable arrow-body-style */
   status(objs) { return objs.filter((obj) => { return obj.status }) },
@@ -28,13 +27,11 @@ export default {
     vcmButton
   },
   name: 'vcm-tree',
-  props: ['model', 'closed'],
+  props: ['model'],
   data: () => ({
     first: false,
     open: false,
-    isClose: false,
-    folderLag: 0,
-    props: { closed: false }
+    folderLag: 0
   }),
   methods: {
     ...mapActions([
@@ -42,32 +39,27 @@ export default {
     ]),
     openFolder() {
       this.open = !this.open
+      this.$el.firstChild.classList.add('toggleBtn')
     },
     selectFolder(item) {
-      this.open = !this.open
       this.setTreeContent(item)
-      // const childStatus = filters.statusInstance(this)
-      // let child
-      // /* eslint-disable arrow-parens */
-      // /* eslint-disable no-unneeded-ternary */
-      // childStatus.forEach(el => {
-      //   el.open === true && this.open === true ? child = true : false
-      // })
-      // switch (true) {
-      //   case this.isFolder > 0 && this.open === false:
-      //     this.open = true
-      //     break
-      //   case child === true && this.open === true:
-      //     // this.isClose = true
-      //     childStatus.forEach(el => {
-      //       el.open = false
-      //       el.isClose = true
-      //     })
-      //     break
-      //   default:
-      //     this.open = false
-      //     break
-      // }
+      const childStatus = filters.statusInstance(this)
+      let child
+      childStatus.forEach(el => {
+        el.open === true && this.open === true ? child = true : false
+      })
+      switch (true) {
+        case this.open === false:
+          this.open = true
+          break
+        case child === true && this.open === true:
+          childStatus.forEach(el => {
+            el.open = false
+          })
+          break
+        default:
+          break
+      }
     }
   },
   computed: {
@@ -80,17 +72,12 @@ export default {
     },
     ordered() {
       return this.model.children
-    },
-    status() {
-      // (el.open === true && el.$parent.open === true) ? this.open = false : false
     }
   },
   mounted() {
     if (generateComponentTrace(this).length > 0) this.first = !this.first
     this.folderLag = (generateComponentTrace(this) * 10) + 'px'
-    /* eslint-disable space-in-parens */
-    this.$eventsVCM.$on('select-folder' + this.model.id, this.openFolder )
-    /* eslint-disable no-restricted-globals */
+    this.$eventsVCM.$on('select-folder' + this.model.id, this.openFolder)
   },
   beforeDestroy() {
     this.$eventsVCM.$off('select-folder' + this.model.id)

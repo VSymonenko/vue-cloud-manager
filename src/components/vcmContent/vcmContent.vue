@@ -1,16 +1,14 @@
 <template>
   <div :class="{'vcm-content': !first, 'vcm-content-folder': first}">
-    <vcm-button @click.native="selectFolder(model)"
-      @dblclick.native="openFolder(model)"
-      :svgContent="icon.folder48"
-      buttonClass="vcm-content-folder"
-      v-if="first"
-      v-show="model.name">
-        <span class="btnText">&nbsp;{{model.name}}</span>
-      </vcm-button>
-    <div v-show="open">
-      <vcm-content v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-content>
-    </div>
+    <vcm-button 
+      @dblclick.native = "openFolder(model)"
+      :svgContent      = "icon.folder48"
+      buttonClass      = "vcm-content-folder"
+      v-if             = "first"
+      v-show           = "model.name">
+      <span class="btnText">&nbsp;{{model.name}}</span>
+    </vcm-button>
+    <vcm-content v-show="open" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-content>
   </div>
 </template>
 
@@ -22,37 +20,12 @@ import vcmButton from '../vcmButton/vcmButton'
 export default {
   methods: {
     ...mapActions([
-      'setTreeContent',
-      'updateTree'
+      'setTreeContent'
     ]),
-    /* eslint-disable no-unused-vars */
-    selectFolder(item) {
-    // switch (true) {
-    //   case (this.selected == false && this.treeState.check == false):
-    //     this.checkbox = !this.checkbox
-    //     this.$set(this.treeState, 'buffer', item)
-    //     this.$set(this.treeState, 'check', true)
-    //     this.selected = true
-    //     let x = _.indexOf(this.treeContent.children, item)
-    //     this.$set(this.treeState, 'itemIndex', x)
-    //     break
-    //   case (this.selected == true && this.treeState.check == true):
-    //     this.$set(this.treeState, 'check', false)
-    //     this.selected = false
-    //     this.checkbox = !this.checkbox
-    //     // this.$set(this.treeState, 'buffer', {})
-    //     this.$set(this.treeState, 'itemIndex', null)
-    // }
-    },
     openFolder(item) {
-      if (this.isFolder) {
+      if (this.model.children) {
         this.setTreeContent(item)
         this.$eventsVCM.$emit('select-folder' + item.id)
-        // this.$set(this.model, 'status', 'open')
-        // if (item.status === 'open') this.$eventsVCM.$emit('open-folder', item)
-        // this.$set(this.treeContent, 'buffer', null)
-        // this.checkbox = false
-        // this.$set(this.treeContent, 'check', false)
       }
     }
   },
@@ -66,8 +39,7 @@ export default {
   props: ['model'],
   computed: {
     ...mapGetters([
-      'icon',
-      'treeContent'
+      'icon'
     ]),
     isFolder() {
       return this.model.children && this.model.children.length
