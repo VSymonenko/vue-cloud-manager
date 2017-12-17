@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonClass" @click="selection($el)">
+  <button :class="buttonClass">
     <i v-html="svgContent" v-if="svgContent"></i>
     <slot></slot>
   </button>
@@ -11,14 +11,7 @@ export default {
     buttonClass: String,
     svgContent: String
   },
-  name: 'vcm-button',
-  methods: {
-    selection(el) {
-      const item = document.querySelectorAll('.toggleBtn')
-      item.forEach((element) => { element.classList.remove('toggleBtn') })
-      el.classList.add('toggleBtn')
-    }
-  }
+  name: 'vcm-button'
 }
 </script>
 

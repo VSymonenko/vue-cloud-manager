@@ -4,5 +4,8 @@ export default {
   },
   setTreeContent: (store, tree) => {
     store.commit('SET_TREE_CONTENT', tree)
+  },
+  saveBack: (store, back) => {
+    store.commit('SAVE_BACK', back)
   }
 }

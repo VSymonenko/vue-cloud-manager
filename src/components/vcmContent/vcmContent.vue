@@ -1,6 +1,7 @@
 <template>
   <div :class="{'vcm-content': !first, 'vcm-content-folder': first}">
     <vcm-button 
+      @click.native    = "selectFolder($el)"
       @dblclick.native = "openFolder(model)"
       :svgContent      = "icon.folder48"
       buttonClass      = "vcm-content-folder"
@@ -16,16 +17,23 @@
 import { mapGetters, mapActions } from 'vuex'
 import generateComponentTrace from '../../core/utils/helpler'
 import vcmButton from '../vcmButton/vcmButton'
+import mixin from '../../core/utils/mixin'
 
 export default {
+  mixins: [mixin],
   methods: {
     ...mapActions([
       'setTreeContent'
     ]),
+    selectFolder(el) {
+      this.cleanSelection('.vcm-content-folder')
+      el.firstChild.classList.toggle('toggleBtn')
+    },
     openFolder(item) {
       if (this.model.children) {
         this.setTreeContent(item)
         this.$eventsVCM.$emit('select-folder' + item.id)
+        this.cleanSelection('.vcm-content-folder')
       }
     }
   },

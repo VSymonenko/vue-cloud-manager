@@ -7,5 +7,8 @@ export default {
   },
   [types.SET_TREE_CONTENT](state, tree) {
     state.treeContent = tree
+  },
+  [types.SAVE_BACK](state, back) {
+    state.treeState.back.push(back)
   }
 }
