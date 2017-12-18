@@ -13,7 +13,10 @@ export const store = new Vuex.Store({
   state: {
     tree: {},
     treeState: {
-      back: []
+      back: [],
+      parentElement: [],
+      counter: 0,
+      treeChoosen: false
     },
     treeContent: {},
     defaultTree: {

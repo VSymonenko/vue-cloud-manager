@@ -7,5 +7,14 @@ export default {
   },
   saveBack: (store, back) => {
     store.commit('SAVE_BACK', back)
+  },
+  saveParentElement: (store, parentElement) => {
+    store.commit('SAVE_PARENT_ELEMENT', parentElement)
+  },
+  historyCounterIncrease: (store) => {
+    store.commit('HISTORY_COUNTER_INCREASE')
+  },
+  historyCounterDecrease: (store) => {
+    store.commit('HISTORY_COUNTER_DECREASE')
   }
 }

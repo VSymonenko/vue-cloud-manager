@@ -9,8 +9,10 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import vcmButton from '../vcmButton/vcmButton'
+import mixin from '../../core/utils/mixin'
 
 export default {
+  mixins: [mixin],
   components: {
     vcmButton
   },
@@ -18,7 +20,8 @@ export default {
     ...mapGetters([
       'icon',
       'treeContent',
-      'treeState'
+      'treeState',
+      'historyCounter'
     ])
   },
   data: () => ({
@@ -47,13 +50,28 @@ export default {
   }),
   methods: {
     ...mapActions([
-      'setTreeContent'
+      'setTreeContent',
+      'historyCounterDecrease'
     ]),
     doIt(act) {
       switch (act) {
         case 'back':
           const model = this.treeState.back
+          const element = this.treeState.parentElement
           if (model.length !== 0) {
+            if (this.treeState.treeChoosen) {
+              this.historyCounterDecrease()
+              console.log(this.historyCounter)
+              element.splice(-1, 1)
+              model.splice(-1, 1)
+              this.cleanSelection('.vcm-tree-folder')
+              element[element.length - 1].classList.add('toggleBtn')
+              this.setTreeContent(model[model.length - 1])
+              this.$set(this.treeState, 'treeChoosen', false)
+            }
+            this.cleanSelection('.vcm-tree-folder')
+            element[element.length - 1].classList.add('toggleBtn')
+            element.splice(-1, 1)
             this.setTreeContent(model[model.length - 1])
             model.splice(-1, 1)
           }

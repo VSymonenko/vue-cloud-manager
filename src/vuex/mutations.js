@@ -10,5 +10,14 @@ export default {
   },
   [types.SAVE_BACK](state, back) {
     state.treeState.back.push(back)
+  },
+  [types.SAVE_PARENT_ELEMENT](state, parentElement) {
+    state.treeState.parentElement.push(parentElement)
+  },
+  [types.HISTORY_COUNTER_INCREASE](state) {
+    state.treeState.counter++
+  },
+  [types.HISTORY_COUNTER_DECREASE](state) {
+    state.treeState.counter--
   }
 }

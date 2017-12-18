@@ -17,6 +17,14 @@ import vcmButton from '../vcmButton/vcmButton'
 import generateComponentTrace from '../../core/utils/helpler'
 import mixin from '../../core/utils/mixin'
 
+/* add to core global init */
+/* eslint-disable no-extend-native */
+if (!Array.prototype.last) {
+  Array.prototype.last = function () {
+    return this[this.length - 1]
+  }
+}
+
 const filters = {
   /* eslint-disable arrow-body-style */
   status(objs) { return objs.filter((obj) => { return obj.status }) },
@@ -33,21 +41,34 @@ export default {
   data: () => ({
     first: false,
     open: false,
-    folderLag: 0
+    folderLag: 0,
+    clicked: false
   }),
   methods: {
     ...mapActions([
       'setTreeContent',
-      'saveBack'
+      'saveBack',
+      'saveParentElement',
+      'historyCounterIncrease'
     ]),
     openFolder() {
       this.open = !this.open
       this.cleanSelection('.vcm-tree-folder')
       this.$el.firstChild.classList.add('toggleBtn')
       this.saveBack(this.$parent.model)
+      this.saveParentElement(this.$parent.$el.firstChild)
+      this.$set(this.treeState, 'treeChoosen', false)
     },
     selectFolder(item, el) {
-      this.saveBack(this.$parent.model)
+      const lastFolderId = () => {
+        if (this.treeState.back.last()) return this.treeState.back.last().id
+      }
+      if (lastFolderId() !== this.model.id) {
+        this.historyCounterIncrease()
+        this.saveBack(this.model)
+        this.saveParentElement(this.$el.firstChild)
+      }
+      this.$set(this.treeState, 'treeChoosen', true)
       this.setTreeContent(item)
       const childStatus = filters.statusInstance(this)
       let child
@@ -73,7 +94,9 @@ export default {
   computed: {
     ...mapGetters([
       'icon',
-      'treeContent'
+      'treeContent',
+      'treeState',
+      'historyCounter'
     ]),
     isFolder() {
       return this.model.children && this.model.children.length
