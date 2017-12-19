@@ -21,7 +21,8 @@ export default {
       'icon',
       'treeContent',
       'treeState',
-      'historyCounter'
+      'historyCounter',
+      'contentBuffer'
     ])
   },
   data: () => ({
@@ -56,25 +57,25 @@ export default {
     doIt(act) {
       switch (act) {
         case 'back':
-          const model = this.treeState.back
-          const element = this.treeState.parentElement
-          if (model.length !== 0) {
-            if (this.treeState.treeChoosen) {
-              this.historyCounterDecrease()
-              console.log(this.historyCounter)
-              element.splice(-1, 1)
-              model.splice(-1, 1)
-              this.cleanSelection('.vcm-tree-folder')
-              element[element.length - 1].classList.add('toggleBtn')
-              this.setTreeContent(model[model.length - 1])
-              this.$set(this.treeState, 'treeChoosen', false)
-            }
+          if (this.historyCounter >= 0) {
+            this.historyCounterDecrease()
+            const choose = this.treeState.treeChoosen
+            const model = choose ? this.treeState.back[this.historyCounter - 1]
+              : this.treeState.back[this.historyCounter]
+            const element = choose ? this.treeState.parentElement[this.historyCounter - 1]
+              : this.treeState.parentElement[this.historyCounter]
             this.cleanSelection('.vcm-tree-folder')
-            element[element.length - 1].classList.add('toggleBtn')
-            element.splice(-1, 1)
-            this.setTreeContent(model[model.length - 1])
-            model.splice(-1, 1)
+            element.classList.add('toggleBtn')
+            this.setTreeContent(model)
           }
+          break
+        case 'open':
+          const openElement = this.contentBuffer.element
+          const openItem = this.contentBuffer.item
+          this.cleanSelection('.vcm-tree-folder')
+          openElement.classList.add('toggleBtn')
+          this.setTreeContent(openItem)
+          this.$eventsVCM.$emit('select-folder' + openItem.id)
           break
         default:
           console.log(act)

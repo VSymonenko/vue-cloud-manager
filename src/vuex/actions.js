@@ -1,3 +1,5 @@
+import getters from './getters'
+
 export default {
   updateTreeState: (store, tree) => {
     store.commit('INIT_TREE_STATE', tree)
@@ -11,10 +13,17 @@ export default {
   saveParentElement: (store, parentElement) => {
     store.commit('SAVE_PARENT_ELEMENT', parentElement)
   },
-  historyCounterIncrease: (store) => {
-    store.commit('HISTORY_COUNTER_INCREASE')
-  },
   historyCounterDecrease: (store) => {
     store.commit('HISTORY_COUNTER_DECREASE')
+  },
+  setHistoryCounter: (store) => {
+    const offset = getters.treeState(store.state).back.length
+    store.commit('HISTORY_COUNTER_SET', offset)
+  },
+  saveToBufferElement: (store, element) => {
+    store.commit('SAVE_TO_BUFFER_ELEMENT', element)
+  },
+  saveToBufferItem: (store, item) => {
+    store.commit('SAVE_TO_BUFFER_ITEM', item)
   }
 }

@@ -16,7 +16,11 @@ export const store = new Vuex.Store({
       back: [],
       parentElement: [],
       counter: 0,
-      treeChoosen: false
+      treeChoosen: false,
+      buffer: {
+        element: {},
+        item: {}
+      }
     },
     treeContent: {},
     defaultTree: {

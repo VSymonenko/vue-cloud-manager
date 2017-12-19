@@ -17,6 +17,7 @@ import vcmFooter from '../vcmFooter/vcmFooter'
 import vcmHeader from '../vcmHeader/vcmHeader'
 import vcmHistory from '../vcmHistory/vcmHistory'
 import vcmTree from '../vcmTree/vcmTree'
+import '../../core'
 
 export default {
   methods: {

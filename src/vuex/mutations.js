@@ -19,5 +19,14 @@ export default {
   },
   [types.HISTORY_COUNTER_DECREASE](state) {
     state.treeState.counter--
+  },
+  [types.HISTORY_COUNTER_SET](state, position) {
+    state.treeState.counter = position
+  },
+  [types.SAVE_TO_BUFFER_ELEMENT](state, element) {
+    state.treeState.buffer.element = element
+  },
+  [types.SAVE_TO_BUFFER_ITEM](state, item) {
+    state.treeState.buffer.item = item
   }
 }

@@ -17,14 +17,6 @@ import vcmButton from '../vcmButton/vcmButton'
 import generateComponentTrace from '../../core/utils/helpler'
 import mixin from '../../core/utils/mixin'
 
-/* add to core global init */
-/* eslint-disable no-extend-native */
-if (!Array.prototype.last) {
-  Array.prototype.last = function () {
-    return this[this.length - 1]
-  }
-}
-
 const filters = {
   /* eslint-disable arrow-body-style */
   status(objs) { return objs.filter((obj) => { return obj.status }) },
@@ -49,7 +41,7 @@ export default {
       'setTreeContent',
       'saveBack',
       'saveParentElement',
-      'historyCounterIncrease'
+      'setHistoryCounter'
     ]),
     openFolder() {
       this.open = !this.open
@@ -58,15 +50,16 @@ export default {
       this.saveBack(this.$parent.model)
       this.saveParentElement(this.$parent.$el.firstChild)
       this.$set(this.treeState, 'treeChoosen', false)
+      this.setHistoryCounter()
     },
     selectFolder(item, el) {
       const lastFolderId = () => {
         if (this.treeState.back.last()) return this.treeState.back.last().id
       }
       if (lastFolderId() !== this.model.id) {
-        this.historyCounterIncrease()
         this.saveBack(this.model)
         this.saveParentElement(this.$el.firstChild)
+        this.setHistoryCounter()
       }
       this.$set(this.treeState, 'treeChoosen', true)
       this.setTreeContent(item)

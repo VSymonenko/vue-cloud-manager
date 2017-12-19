@@ -1,7 +1,7 @@
 <template>
   <div :class="{'vcm-content': !first, 'vcm-content-folder': first}">
     <vcm-button 
-      @click.native    = "selectFolder($el)"
+      @click.native    = "selectFolder($el, model)"
       @dblclick.native = "openFolder(model)"
       :svgContent      = "icon.folder48"
       buttonClass      = "vcm-content-folder"
@@ -23,11 +23,15 @@ export default {
   mixins: [mixin],
   methods: {
     ...mapActions([
-      'setTreeContent'
+      'setTreeContent',
+      'saveToBufferElement',
+      'saveToBufferItem'
     ]),
-    selectFolder(el) {
+    selectFolder(el, model) {
       this.cleanSelection('.vcm-content-folder')
       el.firstChild.classList.toggle('toggleBtn')
+      this.saveToBufferElement(el)
+      this.saveToBufferItem(model)
     },
     openFolder(item) {
       if (this.model.children) {
@@ -47,7 +51,8 @@ export default {
   props: ['model'],
   computed: {
     ...mapGetters([
-      'icon'
+      'icon',
+      'contentBuffer'
     ]),
     isFolder() {
       return this.model.children && this.model.children.length
