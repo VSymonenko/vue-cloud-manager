@@ -23,7 +23,10 @@ export default {
       'treeState',
       'historyCounter',
       'contentBuffer'
-    ])
+    ]),
+    back() {
+      return false
+    }
   },
   data: () => ({
     toolBar: [
@@ -67,6 +70,7 @@ export default {
             this.cleanSelection('.vcm-tree-folder')
             element.classList.add('toggleBtn')
             this.setTreeContent(model)
+            this.$eventsVCM.$emit('select-folder' + model.id, true)
           }
           break
         case 'open':

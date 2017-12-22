@@ -1,13 +1,13 @@
 <template>
   <div :class="{'vcm-tree': !first}" v-if="ordered">
-    <vcm-button 
+    <vcm-button
       @click.native.stop = "selectFolder(model, $el)"
       :svgContent        = "(model.name == 'VUE-CLOUD-MANAGER') ? icon.cloud18 : icon.folder18"
       :style             = "{'padding-left': folderLag}"
       buttonClass        = "vcm-tree-folder">
       <span class="btnText">&nbsp;{{model.name}}</span>
     </vcm-button>
-    <vcm-tree v-if="open || !first" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-tree>
+    <vcm-tree v-show="open || !first" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-tree>
   </div>
 </template>
 
@@ -33,8 +33,7 @@ export default {
   data: () => ({
     first: false,
     open: false,
-    folderLag: 0,
-    clicked: false
+    folderLag: 0
   }),
   methods: {
     ...mapActions([
@@ -43,6 +42,22 @@ export default {
       'saveParentElement',
       'setHistoryCounter'
     ]),
+    trigger(doIt) {
+      (doIt) ? this.stream(doIt) : this.openFolder()
+    },
+    stream() {
+      if (this.$parent.open === false) {
+        this.$parent.open = true
+        this.flow = 'down'
+      }
+      const parallel = this.$parent.$children
+      /* eslint-disable no-return-assign */
+      /* eslint-disable no-unused-vars */
+      parallel.forEach(el => {
+        el.open = false
+        el.flow = 'up'
+      })
+    },
     openFolder() {
       this.open = !this.open
       this.cleanSelection('.vcm-tree-folder')
@@ -91,6 +106,20 @@ export default {
       'treeState',
       'historyCounter'
     ]),
+    flow: {
+      get(val) { return val },
+      set(val) {
+        if (val === 'up') {
+          this.$children.forEach(el => { el.flow = 'up' })
+          this.open = false
+        }
+        if (val === 'down') {
+          this.$parent.open = true
+          this.$parent.flow = 'down'
+        }
+        return val
+      }
+    },
     isFolder() {
       return this.model.children && this.model.children.length
     },
@@ -101,7 +130,7 @@ export default {
   mounted() {
     if (generateComponentTrace(this).length > 0) this.first = !this.first
     this.folderLag = (generateComponentTrace(this) * 10) + 'px'
-    this.$eventsVCM.$on('select-folder' + this.model.id, this.openFolder)
+    this.$eventsVCM.$on('select-folder' + this.model.id, this.trigger)
   },
   beforeDestroy() {
     this.$eventsVCM.$off('select-folder' + this.model.id)
