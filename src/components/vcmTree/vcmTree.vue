@@ -13,7 +13,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import vcmButton from '../vcmButton/vcmButton'
 import generateComponentTrace from '../../core/utils/helpler'
 import mixin from '../../core/utils/mixin'
 
@@ -25,9 +24,6 @@ const filters = {
 
 export default {
   mixins: [mixin],
-  components: {
-    vcmButton
-  },
   name: 'vcm-tree',
   props: ['model'],
   data: () => ({

@@ -16,7 +16,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import generateComponentTrace from '../../core/utils/helpler'
-import vcmButton from '../vcmButton/vcmButton'
 import mixin from '../../core/utils/mixin'
 
 export default {
@@ -40,9 +39,6 @@ export default {
         this.cleanSelection('.vcm-content-folder')
       }
     }
-  },
-  components: {
-    vcmButton
   },
   data: () => ({
     open: true,

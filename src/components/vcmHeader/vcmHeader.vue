@@ -1,21 +1,17 @@
 <template>
   <div id="vcm-header">
     <div v-for="tool in toolBar" class="horizontal-menu">
-      <vcm-button :svgContent="icon[tool.icon]" @click.native="doIt(tool.name)"><span class="btnText">&nbsp;{{tool.name}}</span></vcm-button>
+      <vcm-button :svgContent="icon[tool.icon]" @click.native="doIt(tool.name)" :disabled="tool.name === 'back' && historyCounter === 0"><span class="btnText">&nbsp;{{tool.name}}</span></vcm-button>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import vcmButton from '../vcmButton/vcmButton'
 import mixin from '../../core/utils/mixin'
 
 export default {
   mixins: [mixin],
-  components: {
-    vcmButton
-  },
   computed: {
     ...mapGetters([
       'icon',
