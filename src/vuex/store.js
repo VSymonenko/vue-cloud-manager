@@ -13,6 +13,8 @@ export const store = new Vuex.Store({
   state: {
     tree: {},
     treeState: {
+      recordBranch: [],
+      history: [],
       back: [],
       parentElement: [],
       counter: 0,

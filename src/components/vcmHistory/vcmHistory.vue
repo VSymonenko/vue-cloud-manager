@@ -10,7 +10,7 @@
       <div>Shared: {{ selectionItem.share }}</div>
     </div>
     <div class="vcm-card" v-if="showHistory === true">
-      <vcm-button v-for="item in treeState.back" :key="item.id" v-if="item.name">{{item.name}}</vcm-button>
+      <vcm-button v-for="(item, index) in history" :key="index" v-if="item.action">{{item.action}}: {{item.model.name}}</vcm-button>
     </div>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
   computed: {
     ...mapGetters([
       'selectionItem',
-      'treeState'
+      'history'
     ])
   }
 }

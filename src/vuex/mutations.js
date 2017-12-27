@@ -28,5 +28,17 @@ export default {
   },
   [types.SAVE_TO_BUFFER_ITEM](state, item) {
     state.treeState.buffer.item = item
+  },
+  [types.CLEAR_BUFFER_ITEM](state) {
+    state.treeState.buffer.item = {}
+  },
+  [types.SVAE_HISTORY](state, item) {
+    state.treeState.history.push(item)
+  },
+  [types.RECORD_BRANCH](state, item) {
+    state.treeState.recordBranch.push(item)
+  },
+  [types.CLEAR_BRANCH](state) {
+    state.treeState.recordBranch = []
   }
 }

@@ -25,5 +25,17 @@ export default {
   },
   saveToBufferItem: (store, item) => {
     store.commit('SAVE_TO_BUFFER_ITEM', item)
+  },
+  clearBufferItem: (store) => {
+    store.commit('CLEAR_BUFFER_ITEM')
+  },
+  saveHistory: (store, item) => {
+    store.commit('SVAE_HISTORY', item)
+  },
+  saveBranch: (store, item) => {
+    store.commit('RECORD_BRANCH', item)
+  },
+  clearBranch: (store) => {
+    store.commit('CLEAR_BRANCH')
   }
 }

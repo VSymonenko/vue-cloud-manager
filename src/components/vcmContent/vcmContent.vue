@@ -24,7 +24,8 @@ export default {
     ...mapActions([
       'setTreeContent',
       'saveToBufferElement',
-      'saveToBufferItem'
+      'saveToBufferItem',
+      'clearBufferItem'
     ]),
     selectFolder(el, model) {
       this.cleanSelection('.vcm-content-folder')
@@ -33,6 +34,7 @@ export default {
       this.saveToBufferItem(model)
     },
     openFolder(item) {
+      this.clearBufferItem()
       if (this.model.children) {
         this.setTreeContent(item)
         this.$eventsVCM.$emit('select-folder' + item.id)

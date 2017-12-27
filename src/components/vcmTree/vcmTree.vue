@@ -36,12 +36,17 @@ export default {
       'setTreeContent',
       'saveBack',
       'saveParentElement',
-      'setHistoryCounter'
+      'setHistoryCounter',
+      'saveToBufferItem',
+      'saveHistory',
+      'saveBranch',
+      'clearBranch'
     ]),
     trigger(doIt) {
       (doIt) ? this.stream(doIt) : this.openFolder()
     },
     stream() {
+      this.clearBranch()
       if (this.$parent.open === false) {
         this.$parent.open = true
         this.flow = 'down'
@@ -55,6 +60,8 @@ export default {
       })
     },
     openFolder() {
+      this.clearBranch()
+      this.flow = 'down'
       this.open = !this.open
       this.cleanSelection('.vcm-tree-folder')
       this.$el.firstChild.classList.add('toggleBtn')
@@ -64,6 +71,14 @@ export default {
       this.setHistoryCounter()
     },
     selectFolder(item, el) {
+      this.clearBranch()
+      this.flow = 'down'
+      this.saveToBufferItem(item)
+      const hItem = {
+        model: item,
+        action: 'open'
+      }
+      this.saveHistory(hItem)
       const lastFolderId = () => {
         if (this.treeState.back.last()) return this.treeState.back.last().id
       }
@@ -112,6 +127,7 @@ export default {
         if (val === 'down') {
           this.$parent.open = true
           this.$parent.flow = 'down'
+          this.saveBranch(this.model.name)
         }
         return val
       }

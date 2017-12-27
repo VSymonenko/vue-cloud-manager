@@ -1,15 +1,21 @@
 <template>
   <div id="vcm-footer">
-    info
+    <div v-for="(item, index) in branch" v-if="index < branch.length - 1">{{ item }} /</div>
   </div>
 </template>
 
 <script>
-export default {
+import { mapGetters } from 'vuex'
 
+export default {
+  computed: {
+    ...mapGetters([
+      'branch'
+    ])
+  }
 }
 </script>
 
-<style scoped>
-  @import './vcmFooter.scss';
+<style lang="scss">
+  @import './vcmFooter.scss'
 </style>
