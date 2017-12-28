@@ -37,5 +37,8 @@ export default {
   },
   clearBranch: (store) => {
     store.commit('CLEAR_BRANCH')
+  },
+  clearBuffer: (store) => {
+    store.commit('CLEAR_BUFFER')
   }
 }

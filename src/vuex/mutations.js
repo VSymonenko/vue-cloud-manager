@@ -44,5 +44,11 @@ export default {
   },
   [types.CLEAR_BRANCH](state) {
     state.treeState.recordBranch = []
+  },
+  [types.CLEAR_BUFFER](state) {
+    state.treeState.buffer = {
+      element: {},
+      item: {}
+    }
   }
 }

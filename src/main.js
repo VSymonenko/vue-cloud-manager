@@ -3,8 +3,10 @@ import App from './App'
 import { store } from './vuex/store'
 // import vueCloudManager from '../dist/vue-cloud-manager' // test
 import vcmButton from './components/vcmButton/vcmButton'
+import vcmForm from './components/vcmForm/vcmForm'
 
 Vue.component('vcm-button', vcmButton)
+Vue.component('vcm-form', vcmForm)
 // Vue.use(vueCloudManager) // test
 
 Vue.config.productionTip = false

@@ -1,8 +1,15 @@
 <template>
   <div id="vcm-header">
     <div v-for="tool in toolBar" class="horizontal-menu">
-      <vcm-button :svgContent="icon[tool.icon]" @click.native="doIt(tool.name)" :disabled="tool.name === 'back' && historyCounter === 0"><span class="btnText">&nbsp;{{tool.name}}</span></vcm-button>
+      <vcm-button
+        :svgContent="icon[tool.icon]"
+        @click.native="doIt(tool.name)"
+        :disabled="tool.name === 'back' && historyCounter === 0 || !contentBuffer.item.name"><span class="btnText">&nbsp;{{tool.name}}</span></vcm-button>
     </div>
+    <vcm-form v-if="showModal" @close="getName">
+      <h3 slot="vcm-header">enter name</h3>
+      <input slot="vcm-body" v-model="newName"/>
+    </vcm-form>
   </div>
 </template>
 
@@ -25,6 +32,8 @@ export default {
     }
   },
   data: () => ({
+    newName: '',
+    showModal: false,
     toolBar: [
       {
         name: 'back',
@@ -51,9 +60,11 @@ export default {
   methods: {
     ...mapActions([
       'setTreeContent',
-      'historyCounterDecrease'
+      'historyCounterDecrease',
+      'clearBuffer'
     ]),
     doIt(act) {
+      const openItem = this.contentBuffer.item
       switch (act) {
         case 'back':
           if (this.historyCounter >= 0) {
@@ -71,16 +82,28 @@ export default {
           break
         case 'open':
           const openElement = this.contentBuffer.element
-          const openItem = this.contentBuffer.item
-          this.cleanSelection('.vcm-tree-folder')
-          openElement.classList.add('toggleBtn')
-          this.setTreeContent(openItem)
-          this.$eventsVCM.$emit('select-folder' + openItem.id)
+          if (openItem) {
+            this.cleanSelection('.vcm-tree-folder')
+            openElement.classList.add('toggleBtn')
+            this.setTreeContent(openItem)
+            this.$eventsVCM.$emit('select-folder' + openItem.id)
+            this.cleanSelection('.vcm-content-folder')
+            this.clearBuffer()
+          }
+          break
+        case 'rename':
+          this.showModal = true
           break
         default:
           console.log(act)
           break
       }
+    },
+    getName() {
+      this.showModal = false
+      const item = this.contentBuffer.item
+      this.$set(item, 'name', this.newName)
+      this.newName = ''
     }
   }
 }
