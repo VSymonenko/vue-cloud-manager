@@ -47,17 +47,18 @@ export default {
     },
     stream() {
       this.clearBranch()
-      if (this.$parent.open === false) {
-        this.$parent.open = true
-        this.flow = 'down'
-      }
+      this.flow = 'down'
       const parallel = this.$parent.$children
       /* eslint-disable no-return-assign */
-      /* eslint-disable no-unused-vars */
       parallel.forEach(el => {
         el.open = false
         el.flow = 'up'
       })
+      if (this.$parent.open === false) {
+        this.$parent.open = true
+        this.clearBranch()
+        this.flow = 'down'
+      }
     },
     openFolder() {
       this.clearBranch()

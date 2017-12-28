@@ -7,6 +7,8 @@ export default {
   },
   [types.SET_TREE_CONTENT](state, tree) {
     state.treeContent = tree
+    state.treeState.counterItems = tree.children.length
+    state.treeState.selectedItems = 0
   },
   [types.SAVE_BACK](state, back) {
     state.treeState.back.push(back)
@@ -28,9 +30,11 @@ export default {
   },
   [types.SAVE_TO_BUFFER_ITEM](state, item) {
     state.treeState.buffer.item = item
+    state.treeState.selectedItems = 1
   },
   [types.CLEAR_BUFFER_ITEM](state) {
     state.treeState.buffer.item = {}
+    state.treeState.selectedItems = 0
   },
   [types.SVAE_HISTORY](state, item) {
     state.treeState.history.push(item)

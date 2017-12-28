@@ -8,5 +8,7 @@ export default {
   contentBuffer: state => state.treeState.buffer,
   selectionItem: state => state.treeState.buffer.item,
   history: state => state.treeState.history,
-  branch: state => state.treeState.recordBranch
+  branch: state => state.treeState.recordBranch,
+  counterItems: state => state.treeState.counterItems,
+  selectedItems: state => state.treeState.selectedItems
 }
