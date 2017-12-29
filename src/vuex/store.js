@@ -37,6 +37,7 @@ export const store = new Vuex.Store({
       owner: '',
       format: 'root',
       share: '',
+      data: '',
       children: [
         {
           id: 1,
@@ -48,6 +49,7 @@ export const store = new Vuex.Store({
           owner: 'me',
           format: 'folder',
           share: 'none',
+          data: '',
           children: [{
             id: 2,
             name: 'Fork Template 2 level',
@@ -58,6 +60,7 @@ export const store = new Vuex.Store({
             owner: 'me',
             format: 'folder',
             share: 'none',
+            data: '',
             children: [{
               id: 3,
               name: 'Fork Template 3 level',
@@ -68,6 +71,7 @@ export const store = new Vuex.Store({
               owner: 'me',
               format: 'folder',
               share: 'none',
+              data: '',
               children: [{
                 id: 4,
                 name: 'Fork Template 4 level',
@@ -78,6 +82,7 @@ export const store = new Vuex.Store({
                 owner: 'me',
                 format: 'folder',
                 share: 'none',
+                data: '',
                 children: [{
                   id: 5,
                   name: 'Fork Template 5 level',
@@ -88,6 +93,7 @@ export const store = new Vuex.Store({
                   owner: 'me',
                   format: 'folder',
                   share: 'none',
+                  data: '',
                   children: [{
                     id: 6,
                     name: 'Fork Template 6 level',
@@ -98,6 +104,7 @@ export const store = new Vuex.Store({
                     owner: 'me',
                     format: 'folder',
                     share: 'none',
+                    data: '',
                     children: []
                   }]
                 }]
@@ -114,6 +121,7 @@ export const store = new Vuex.Store({
             owner: 'me',
             format: 'folder',
             share: 'none',
+            data: '',
             children: []
           },
           {
@@ -125,7 +133,8 @@ export const store = new Vuex.Store({
             modifiedDate: '03.11.2016',
             owner: 'me',
             format: 'file',
-            share: 'none'
+            share: 'none',
+            data: ''
           }
           ]
         },
@@ -139,6 +148,7 @@ export const store = new Vuex.Store({
           owner: 'me',
           format: 'folder',
           share: 'none',
+          data: '',
           children: [
             {
               id: 10,
@@ -149,7 +159,8 @@ export const store = new Vuex.Store({
               modifiedDate: '03.11.2010',
               owner: 'me',
               format: 'file',
-              share: 'none'
+              share: 'none',
+              data: ''
             }
           ]
         },
@@ -162,7 +173,8 @@ export const store = new Vuex.Store({
           modifiedDate: '03.11.2010',
           owner: 'me',
           format: 'file',
-          share: 'none'
+          share: 'none',
+          data: ''
         }
       ]
     },

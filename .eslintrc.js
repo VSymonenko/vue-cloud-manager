@@ -53,6 +53,7 @@ module.exports = {
     'prefer-const': 0,
     'prefer-destructuring': 0,
     'no-case-declarations': 0,
-    'arrow-parens': 0
+    'arrow-parens': 0,
+    'no-confusing-arrow': 0
   }
 }

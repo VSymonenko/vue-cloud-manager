@@ -40,7 +40,8 @@ export default {
       'saveToBufferItem',
       'saveHistory',
       'saveBranch',
-      'clearBranch'
+      'clearBranch',
+      'clearBufferItem'
     ]),
     trigger(doIt) {
       (doIt) ? this.stream(doIt) : this.openFolder()
@@ -72,9 +73,11 @@ export default {
       this.setHistoryCounter()
     },
     selectFolder(item, el) {
+      this.cleanSelection('.vcm-content-folder')
+      this.clearBufferItem()
       this.clearBranch()
       this.flow = 'down'
-      this.saveToBufferItem(item)
+      // this.saveToBufferItem(item)
       const hItem = {
         model: item,
         action: 'open'

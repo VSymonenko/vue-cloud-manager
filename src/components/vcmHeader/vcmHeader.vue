@@ -15,6 +15,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Moment from '../../core/utils/moment'
 import mixin from '../../core/utils/mixin'
 
 export default {
@@ -32,6 +33,7 @@ export default {
     }
   },
   data: () => ({
+    copyCounter: 1,
     newName: '',
     showModal: false,
     toolBar: [
@@ -92,10 +94,21 @@ export default {
           }
           break
         case 'rename':
+          this.newName = this.contentBuffer.item.name
           this.showModal = true
           break
+        case 'copy':
+          const donorItem = this.contentBuffer.item
+          const newItem = Object.assign({}, donorItem)
+          newItem.name = donorItem.name + '_copy_' + this.copyCounter++
+          this.treeContent.children.push(newItem)
+          break
+        case 'delete':
+          const inavlid = this.treeContent.children
+          const deleteItem = this.contentBuffer.item
+          this.$delete(inavlid, inavlid.indexOf(deleteItem))
+          break
         default:
-          console.log(act)
           break
       }
     },
@@ -103,6 +116,8 @@ export default {
       this.showModal = false
       const item = this.contentBuffer.item
       this.$set(item, 'name', this.newName)
+      this.$set(item, 'modifiedTime', Moment('theTime'))
+      this.$set(item, 'modifiedDate', Moment('theDate'))
       this.newName = ''
     }
   }
