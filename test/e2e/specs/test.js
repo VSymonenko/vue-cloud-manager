@@ -11,8 +11,7 @@ module.exports = {
     browser
       .url(devServer)
       .waitForElementVisible('#vue-cloud-manager', 5000)
-      .assert.elementPresent('.content')
-      .assert.containsText('h1', 'content')
+      .assert.title('vue-cloud-manager')
       .assert.elementCount('img', 0)
       .end()
   }

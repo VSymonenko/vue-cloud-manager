@@ -4,7 +4,8 @@
       <vcm-button
         :svgContent="icon[tool.icon]"
         @click.native="doIt(tool.name)"
-        :disabled="tool.name === 'back' && historyCounter === 0 || !contentBuffer.item.name"><span class="btnText">&nbsp;{{tool.name}}</span></vcm-button>
+        :disabled="(tool.name === 'back' && historyCounter === 0) ||
+        (!contentBuffer.item.name && tool.name !== 'back')"><span class="btnText">&nbsp;{{tool.name}}</span></vcm-button>
     </div>
     <vcm-form v-if="showModal" @close="getName">
       <h3 slot="vcm-header">enter name</h3>
