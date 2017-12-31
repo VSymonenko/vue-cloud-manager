@@ -10,5 +10,6 @@ export default {
   history: state => state.treeState.history,
   branch: state => state.treeState.recordBranch,
   counterItems: state => state.treeState.counterItems,
-  selectedItems: state => state.treeState.selectedItems
+  selectedItems: state => state.treeState.selectedItems,
+  donor: state => state.donor
 }

@@ -4,10 +4,13 @@
       <vcm-button
         :svgContent="icon[tool.icon]"
         @click.native="doIt(tool.name)"
-        :disabled="(tool.name === 'back' && historyCounter === 0) ||
-        (!contentBuffer.item.name && tool.name !== 'back')"><span class="btnText">&nbsp;{{tool.name}}</span></vcm-button>
+        :disabled="isActive(tool.name)"><span class="btnText">&nbsp;{{tool.name}}</span></vcm-button>
     </div>
-    <vcm-form v-if="showModal" @close="getName">
+    <vcm-form v-if="showModalRename" @close="getName">
+      <h3 slot="vcm-header">enter name</h3>
+      <input slot="vcm-body" v-model="newName"/>
+    </vcm-form>
+    <vcm-form v-if="showModalAdd" @close="addFolder">
       <h3 slot="vcm-header">enter name</h3>
       <input slot="vcm-body" v-model="newName"/>
     </vcm-form>
@@ -18,6 +21,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import Moment from '../../core/utils/moment'
 import mixin from '../../core/utils/mixin'
+import GUID from '../../core/utils/uniqueId'
 
 export default {
   mixins: [mixin],
@@ -27,16 +31,15 @@ export default {
       'treeContent',
       'treeState',
       'historyCounter',
-      'contentBuffer'
-    ]),
-    back() {
-      return false
-    }
+      'contentBuffer',
+      'donor'
+    ])
   },
   data: () => ({
     copyCounter: 1,
     newName: '',
-    showModal: false,
+    showModalRename: false,
+    showModalAdd: false,
     toolBar: [
       {
         name: 'back',
@@ -55,6 +58,10 @@ export default {
         icon: 'copy18'
       },
       {
+        name: 'add folder',
+        icon: 'add'
+      },
+      {
         name: 'delete',
         icon: 'delete18'
       }
@@ -66,6 +73,18 @@ export default {
       'historyCounterDecrease',
       'clearBuffer'
     ]),
+    isActive(name) {
+      switch (name) {
+        case 'back':
+          if (this.historyCounter === 0) return true
+          break
+        case 'add folder':
+          return false
+        default:
+          if (!this.contentBuffer.item.name) return true
+          break
+      }
+    },
     doIt(act) {
       const openItem = this.contentBuffer.item
       switch (act) {
@@ -109,12 +128,31 @@ export default {
           const deleteItem = this.contentBuffer.item
           this.$delete(inavlid, inavlid.indexOf(deleteItem))
           break
+        case 'add folder':
+          this.newName
+          this.showModalAdd = true
+          break
         default:
           break
       }
     },
+    addFolder() {
+      this.showModalAdd = false
+      let newFolder = Object.assign({}, this.donor)
+      newFolder.id = GUID('uniq')
+      newFolder.name = this.newName
+      newFolder.createTime = Moment('theTime')
+      newFolder.createDate = Moment('theDate')
+      newFolder.modifiedTime = Moment('theTime')
+      newFolder.modifiedDate = Moment('theDate')
+      newFolder.owner = 'me'
+      newFolder.share = 'none'
+      newFolder.format = 'folder'
+      newFolder.children = []
+      this.treeContent.children.push(newFolder)
+    },
     getName() {
-      this.showModal = false
+      this.showModalRename = false
       const item = this.contentBuffer.item
       this.$set(item, 'name', this.newName)
       this.$set(item, 'modifiedTime', Moment('theTime'))

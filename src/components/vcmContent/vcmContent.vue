@@ -63,9 +63,6 @@ export default {
   mounted() {
     /* eslint-disable no-sequences */
     if (generateComponentTrace(this).length !== 0) this.first = !this.first, this.open = !this.open
-  },
-  updated() {
-    console.log(this.model)
   }
 }
 </script>

@@ -77,7 +77,7 @@ export default {
       this.clearBufferItem()
       this.clearBranch()
       this.flow = 'down'
-      this.saveToBufferItem(item)
+      // this.saveToBufferItem(item)
       const hItem = {
         model: item,
         action: 'open'
