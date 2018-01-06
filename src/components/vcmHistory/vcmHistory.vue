@@ -1,6 +1,6 @@
 <template>
   <div id="vcm-history">
-    <vcm-button v-for="btn in buttonList" :key="btn.id" @click.native="show(btn)"><span>&nbsp;{{btn}}</span></vcm-button>
+    <vcm-button v-for="btn in buttonList" :key="btn.id" @click.native="show(btn)"><span>{{btn}}</span></vcm-button>
     <div class="vcm-card" v-if="showDetails === true && selectionItem.name">
       <div>Name: {{ selectionItem.name }}</div>
       <div>Created: {{ selectionItem.createDate }} {{ selectionItem.createTime }}</div>

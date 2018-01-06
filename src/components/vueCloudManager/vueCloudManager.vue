@@ -11,25 +11,19 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import vcmContent from '../vcmContent/vcmContent'
 import vcmFooter from '../vcmFooter/vcmFooter'
 import vcmHeader from '../vcmHeader/vcmHeader'
 import vcmHistory from '../vcmHistory/vcmHistory'
 import vcmTree from '../vcmTree/vcmTree'
-import '../../core'
 
 export default {
-  methods: {
-    ...mapActions([
-      'updateTreeState'
-    ])
-  },
   computed: {
     ...mapGetters([
-      'defaultTree',
       'tree',
-      'treeContent'
+      'treeContent',
+      'donor'
     ])
   },
   props: {
@@ -45,13 +39,11 @@ export default {
     vcmHeader,
     vcmHistory,
     vcmTree
-  },
-  created() {
-    this.simple ? this.updateTreeState(this.simple) : this.updateTreeState(this.defaultTree)
   }
 }
 </script>
 
 <style lang="scss">
-  @import './vueCloudManager.scss'
+  @import './vueCloudManager.scss';
+  @import './../../core/style/style.scss';
 </style>

@@ -4,7 +4,8 @@
       <vcm-button
         :svgContent="icon[tool.icon]"
         @click.native="doIt(tool.name)"
-        :disabled="isActive(tool.name)"><span class="btnText">&nbsp;{{tool.name}}</span></vcm-button>
+        :disabled="isActive(tool.name)"
+        button-class="vcm-header-button"><span class="btnText">{{tool.name}}</span></vcm-button>
     </div>
     <vcm-form v-if="showModalRename" @close="getName">
       <h3 slot="vcm-header">enter name</h3>
@@ -19,9 +20,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import Moment from '../../core/utils/moment'
 import mixin from '../../core/utils/mixin'
-import GUID from '../../core/utils/uniqueId'
 
 export default {
   mixins: [mixin],
@@ -115,7 +114,7 @@ export default {
           break
         case 'rename':
           this.newName = this.contentBuffer.item.name
-          this.showModal = true
+          this.showModalRename = true
           break
         case 'copy':
           const donorItem = this.contentBuffer.item
@@ -129,7 +128,7 @@ export default {
           this.$delete(inavlid, inavlid.indexOf(deleteItem))
           break
         case 'add folder':
-          this.newName
+          this.newName = ''
           this.showModalAdd = true
           break
         default:
@@ -139,15 +138,12 @@ export default {
     addFolder() {
       this.showModalAdd = false
       let newFolder = Object.assign({}, this.donor)
-      newFolder.id = GUID('uniq')
+      newFolder.id = this.$core.id.uniqId()
       newFolder.name = this.newName
-      newFolder.createTime = Moment('theTime')
-      newFolder.createDate = Moment('theDate')
-      newFolder.modifiedTime = Moment('theTime')
-      newFolder.modifiedDate = Moment('theDate')
-      newFolder.owner = 'me'
-      newFolder.share = 'none'
-      newFolder.format = 'folder'
+      newFolder.createTime = this.$core.moment.getTime()
+      newFolder.createDate = this.$core.moment.getDate()
+      newFolder.modifiedTime = this.$core.moment.getTime()
+      newFolder.modifiedDate = this.$core.moment.getDate()
       newFolder.children = []
       this.treeContent.children.push(newFolder)
     },
@@ -155,8 +151,8 @@ export default {
       this.showModalRename = false
       const item = this.contentBuffer.item
       this.$set(item, 'name', this.newName)
-      this.$set(item, 'modifiedTime', Moment('theTime'))
-      this.$set(item, 'modifiedDate', Moment('theDate'))
+      this.$set(item, 'modifiedTime', this.$core.moment.getTime())
+      this.$set(item, 'modifiedDate', this.$core.moment.getDate())
       this.newName = ''
     }
   }

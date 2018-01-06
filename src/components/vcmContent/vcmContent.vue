@@ -3,11 +3,11 @@
     <vcm-button 
       @click.native    = "selectFolder($el, model)"
       @dblclick.native = "openFolder(model)"
-      :svgContent      = "icon.folder48"
-      buttonClass      = "vcm-content-folder"
+      :svg-content      = "icon.folder48"
+      button-class      = "vcm-content-folder"
       v-if             = "first"
       v-show           = "model.name">
-      <span class="btnText">&nbsp;{{model.name}}</span>
+      <span class="btnText">{{model.name}}</span>
     </vcm-button>
     <vcm-content v-show="open" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-content>
   </div>

@@ -13,7 +13,8 @@ module.exports = {
     path: config.build.assetsRoot,
     filename: 'vue-cloud-manager.js',
     libraryTarget: 'umd',
-    library: 'vue-cloud-manager',
+    libraryExport: 'default',
+    library: 'vueCloudManager',
     umdNamedDefine: true
   },
   resolve: {
