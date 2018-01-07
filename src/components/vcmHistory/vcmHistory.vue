@@ -1,7 +1,10 @@
 <template>
   <div id="vcm-history">
-    <vcm-button v-for="btn in buttonList" :key="btn.id" @click.native="show(btn)"><span>{{btn}}</span></vcm-button>
-    <div class="vcm-card" v-if="showDetails === true && selectionItem.name">
+    <vcm-tabs>
+      <vcm-button v-for="btn in buttonList" :key="btn.id" @click.native="show(btn)" button-class="vcm-tabs-button"><span>{{btn}}</span></vcm-button>
+    </vcm-tabs>
+    <transition name="slide-fade">
+    <div class="vcm-card" v-show="showDetails === true && selectionItem.name">
       <div>Name: {{ selectionItem.name }}</div>
       <div>Created: {{ selectionItem.createDate }} {{ selectionItem.createTime }}</div>
       <div>Modified: {{ selectionItem.modifiedDate }} {{ selectionItem.modifiedTime }}</div>
@@ -9,16 +12,26 @@
       <div>Owner: {{ selectionItem.owner }}</div>
       <div>Shared: {{ selectionItem.share }}</div>
     </div>
-    <div class="vcm-card" v-if="showHistory === true">
-      <vcm-button v-for="(item, index) in history" :key="index" v-if="item.action">{{item.action}}: {{item.model.name}}</vcm-button>
+    </transition>
+    <transition name="slide-fade">
+    <div class="vcm-card-history" v-show="showHistory === true">
+      <div v-for="(item, index) in history" :key="index" v-if="item.action" style="display: flex;">
+        <span>{{item.action}}:</span>
+        <vcm-button button-class="vcm-action-button">{{item.model.name}}</vcm-button>
+      </div>
     </div>
+  </transition>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import vcmTabs from './../vcmTabs/vcmTabs'
 
 export default {
+  components: {
+    vcmTabs
+  },
   data: () => ({
     buttonList: ['Details', 'History'],
     showDetails: true,

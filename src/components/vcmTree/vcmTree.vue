@@ -25,7 +25,11 @@ const filters = {
 export default {
   mixins: [mixin],
   name: 'vcm-tree',
-  props: ['model'],
+  props: {
+    model: {
+      type: Object
+    }
+  },
   data: () => ({
     first: false,
     open: false,

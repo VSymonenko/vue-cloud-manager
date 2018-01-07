@@ -46,7 +46,11 @@ export default {
     open: true,
     first: false
   }),
-  props: ['model'],
+  props: {
+    model: {
+      type: Object
+    }
+  },
   computed: {
     ...mapGetters([
       'icon',

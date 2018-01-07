@@ -28,8 +28,7 @@ export default {
   },
   props: {
     simple: {
-      type: Object,
-      default: null
+      type: Object
     }
   },
   name: 'vue-cloud-manager',

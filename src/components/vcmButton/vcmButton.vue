@@ -10,8 +10,7 @@ export default {
   props: {
     buttonClass: String,
     svgContent: String
-  },
-  name: 'vcm-button'
+  }
 }
 </script>
 

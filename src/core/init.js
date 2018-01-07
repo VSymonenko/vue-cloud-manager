@@ -21,7 +21,9 @@ export default {
         }
       ]
     },
-    treeData: {}
+    vcmData: {},
+    treeData: {},
+    sorage: ''
   }),
   computed: {
     ...mapGetters([
@@ -38,12 +40,14 @@ export default {
     }
   },
   created() {
-    (this.fetchTreeStorage())
-      ? setTimeout(() => {
-        this.treeData = this.fetchTreeStorage()
-        this.updateTreeState(this.treeData)
-      }, 100)
-      : this.updateTreeState(this.treeData = Object.assign({}, this.donor, this.instance))
+    switch (this.storage) {
+      case 'local':
+        this.loadLocal()
+        break
+      default:
+        this.loadLocal()
+        break
+    }
   },
   methods: {
     ...mapActions([
@@ -54,6 +58,20 @@ export default {
     },
     saveTreeStorage() {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.treeData))
+    },
+    loadLocal() {
+      setTimeout(() => {
+        if (!this.vcmData.name) {
+          this.treeData = this.fetchTreeStorage() || Object.assign({}, this.donor, this.instance)
+        }
+        if (this.vcmData.name && !this.fetchTreeStorage()) {
+          this.treeData = Object.assign({}, this.vcmData)
+        }
+        if (this.fetchTreeStorage()) {
+          this.treeData = this.fetchTreeStorage()
+        }
+        this.updateTreeState(this.treeData)
+      }, 50)
     }
   }
 }

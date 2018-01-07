@@ -1,10 +1,69 @@
+$primary-color: #6B4FA4;
+
 #vcm-history {
+  display: flex;
   padding: 5px;
+  margin: 0;
   border: 1px solid #8888bb;
   background: #E0E0E0;
   flex: 1 6 20%;
   order: 3;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .vcm-card {
-  display: block
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.vcm-tabs-button {
+  width: 100%;
+  border: 10px;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  &.vcm-active,
+    &:focus {
+      color: $primary-color;
+      border-bottom: 3px solid $primary-color;
+  }
+}
+.vcm-action-button {
+  width: 100%;
+  border: 10px;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  &:hover {
+    opacity: .62;
+    overflow: visible;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+    0 1px 5px 0 rgba(0,0,0,0.12),
+    0 3px 1px -2px rgba(0,0,0,0.2);
+    span.btnText {
+      overflow: visible;
+    }
+  }
+}
+.vcm-card-history {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.slide-fade-enter-active {
+  transition: all .5s ease;
+}
+.slide-fade-leave-active {
+  transition: all cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(20px);
+  opacity: 0;
 }
