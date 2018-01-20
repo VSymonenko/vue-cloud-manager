@@ -15,8 +15,8 @@
     </transition>
     <transition name="slide-fade">
     <div class="vcm-card-history" v-show="showHistory === true">
-      <div v-for="(item, index) in history" :key="index" v-if="item.action" style="display: flex;">
-        <span>{{item.action}}:</span>
+      <div v-for="(item, index) in ordered" :key="index" v-if="item.action" style="display: flex;">
+        <span style="padding-right: 10px;">{{item.action}}:</span>
         <vcm-button button-class="vcm-action-button">{{item.model.name}}</vcm-button>
       </div>
     </div>
@@ -57,7 +57,10 @@ export default {
     ...mapGetters([
       'selectionItem',
       'history'
-    ])
+    ]),
+    ordered() {
+      return Object.assign([], this.history).reverse()
+    }
   }
 }
 </script>

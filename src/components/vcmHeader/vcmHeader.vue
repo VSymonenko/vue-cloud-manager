@@ -1,12 +1,14 @@
 <template>
   <div id="vcm-header">
-    <div v-for="tool in toolBar" class="horizontal-menu">
+    <vcm-tabs v-for="tool in toolBar" :key="tool.name" class="horizontal-menu">
       <vcm-button
-        :svgContent="icon[tool.icon]"
-        @click.native="doIt(tool.name)"
-        :disabled="isActive(tool.name)"
-        button-class="vcm-header-button"><span class="btnText">{{tool.name}}</span></vcm-button>
-    </div>
+        :svgContent   = "icon[tool.icon]"
+        @click.native = "doIt(tool.name)"
+        :disabled     = "isActive(tool.name)"
+        button-class  = "vcm-header-button">
+        <span class="btnText">{{tool.name}}</span>
+      </vcm-button>
+    </vcm-tabs>
     <vcm-form v-if="showModalRename" @close="getName">
       <h3 slot="vcm-header">enter name</h3>
       <input slot="vcm-body" v-model="newName"/>
@@ -21,8 +23,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import mixin from '../../core/utils/mixin'
+import vcmTabs from '../vcmTabs/vcmTabs'
 
 export default {
+  components: {
+    vcmTabs
+  },
+  name: 'vcm-header',
   mixins: [mixin],
   computed: {
     ...mapGetters([
@@ -103,7 +110,7 @@ export default {
           break
         case 'open':
           const openElement = this.contentBuffer.element
-          if (openItem) {
+          if (openItem.format === 'folder') {
             this.cleanSelection('.vcm-tree-folder')
             openElement.classList.add('toggleBtn')
             this.setTreeContent(openItem)

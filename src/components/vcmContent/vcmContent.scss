@@ -1,13 +1,25 @@
 $primary-color: #6B4FA4;
+$bg-color: white;
 
 .vcm-content {
   padding: 5px;
-  border: 1px solid #cccc33;
-  background: #F5F5F5;
+  background: $bg-color;
   flex: 3 1 60%;
   order: 2;
+  overflow-y: scroll;
+  border: 1px solid #e4e4e4;
+}
+.vcm-folder {
+  display: inline-grid;
+}
+.vcm-content-folder.toggleBtn {
+  background-color: $primary-color;
+  svg {
+    fill: $bg-color;
+  }
 }
 .vcm-content-folder {
+  background-color: inherit;
   width: 96px;
   display: inline-grid;
   border: 10px;
@@ -22,16 +34,14 @@ $primary-color: #6B4FA4;
   border-radius: 2px;
   user-select: none;
   align-items: center;
-  // background-color: inherit;
   svg {
     fill: $primary-color;
   }
   &:hover {
-    opacity: .62;
     overflow: visible;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
-    0 1px 5px 0 rgba(0,0,0,0.12),
-    0 3px 1px -2px rgba(0,0,0,0.2);
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0px 3px 14px 2px rgba(0, 0, 0, 0.12);
     span.btnText {
       overflow: visible;
     }

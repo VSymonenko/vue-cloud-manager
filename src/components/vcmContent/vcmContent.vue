@@ -1,15 +1,16 @@
 <template>
-  <div :class="{'vcm-content': !first, 'vcm-content-folder': first}">
+  <div :class="{'vcm-content': !first, 'vcm-folder': first}">
     <vcm-button 
       @click.native    = "selectFolder($el, model)"
       @dblclick.native = "openFolder(model)"
-      :svg-content      = "icon.folder48"
-      button-class      = "vcm-content-folder"
+      :svg-content     = "svgIcon"
+      button-class     = "vcm-content-folder"
       v-if             = "first"
       v-show           = "model.name">
       <span class="btnText">{{model.name}}</span>
     </vcm-button>
-    <vcm-content v-show="open" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-content>
+    <vcm-content v-show="open && model.format === 'folder'" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-content>
+    <vcm-content v-show="open && model.format !== 'folder'" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-content>
   </div>
 </template>
 
@@ -40,33 +41,62 @@ export default {
         this.$eventsVCM.$emit('select-folder' + item.id)
         this.cleanSelection('.vcm-content-folder')
       }
+    },
+    orderBy(key) {
+      /* needed redesign */
+      let item = this.treeContent.children
+      switch (key) {
+        case 'name':
+          item.sort((a, b) => {
+            let nameA = a.name.toUpperCase()
+            let nameB = b.name.toUpperCase()
+            if (nameA < nameB) {
+              return -1
+            }
+            if (nameA > nameB) {
+              return 1
+            }
+            return 0
+          })
+          return item
+        default:
+          return item
+      }
     }
   },
   data: () => ({
     open: true,
     first: false
   }),
-  props: {
-    model: {
-      type: Object
-    }
-  },
+  props: ['model'],
   computed: {
     ...mapGetters([
       'icon',
-      'contentBuffer'
+      'contentBuffer',
+      'treeContent'
     ]),
     isFolder() {
       return this.model.children && this.model.children.length
     },
     ordered() {
       return this.model.children
+    },
+    svgIcon() {
+      switch (this.model.format) {
+        case 'folder':
+          return this.icon.folder48
+        default:
+          return this.icon.file
+      }
     }
   },
   name: 'vcm-content',
   mounted() {
     /* eslint-disable no-sequences */
     if (generateComponentTrace(this).length !== 0) this.first = !this.first, this.open = !this.open
+    if (this.first) {
+      // const newObj = JSON.parse(JSON.stringify(this.treeContent.children))
+    }
   }
 }
 </script>

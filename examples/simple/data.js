@@ -1,4 +1,4 @@
-var vcmData = {
+var data = {
   id: 0,
   name: 'VUE-CLOUD-MANAGER',
   createTime: '',

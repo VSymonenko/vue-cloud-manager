@@ -9,14 +9,17 @@ export default {
       children: [
         {
           name: 'add',
+          format: 'folder',
           children: []
         },
         {
           name: 'your',
+          format: 'folder',
           children: []
         },
         {
           name: 'data',
+          format: 'folder',
           children: []
         }
       ]

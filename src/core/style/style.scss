@@ -5,7 +5,10 @@ body {
   #vue-cloud-manager main {
     flex-direction: column;
   }
-  #vcm-tree, #vcm-history{
+  .vcm-tree {
+    display: none;
+  }
+  main #vcm-history {
     display: none;
   }
 }

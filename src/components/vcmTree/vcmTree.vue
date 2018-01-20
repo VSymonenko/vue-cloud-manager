@@ -2,12 +2,12 @@
   <div :class="{'vcm-tree': !first}" v-if="ordered">
     <vcm-button
       @click.native.stop = "selectFolder(model, $el)"
-      :svg-content        = "(model.format === 'root') ? icon.cloud18 : icon.folder18"
+      :svg-content       = "(model.format === 'root') ? icon.cloud18 : icon.folder18"
       :style             = "{'padding-left': folderLag}"
-      button-class        = "vcm-tree-folder">
+      button-class       = "vcm-tree-folder">
       <span class="btnText">{{ model.name }}</span>
     </vcm-button>
-    <vcm-tree v-show="open || !first" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-tree>
+    <vcm-tree v-show="open || !first" v-if="model.format === 'folder'" v-for="(model, key, index) in ordered" :model="model" :key="index"></vcm-tree>
   </div>
 </template>
 
