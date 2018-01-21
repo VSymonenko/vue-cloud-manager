@@ -1,5 +1,6 @@
 <template>
   <div id="vue-cloud-manager">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'> -->
     <vcm-header/>
     <main>
       <vcm-tree :model="tree"/>
