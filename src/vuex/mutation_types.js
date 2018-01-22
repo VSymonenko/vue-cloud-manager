@@ -1,2 +1,0 @@
-export const INIT_TREE_STATE = 'INIT_TREE_STATE'
-export const SET_TREE_CONTENT = 'SET_TREE_CONTENT'
