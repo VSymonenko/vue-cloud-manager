@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'vcm-tree': !first}" v-if="ordered">
+  <div :class="{'vcm-tree': !first, 'vcm-higth': first}" v-if="ordered">
     <vcm-button
       @click.native.stop = "selectFolder(model, $el)"
       :svg-content       = "(model.format === 'root') ? icon.cloud18 : icon.folder18"

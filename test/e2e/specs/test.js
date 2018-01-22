@@ -8,7 +8,7 @@ module.exports = {
     // see nightwatch.conf.js
     const devServer = browser.globals.devServerURL
 
-    browser
+    browse
       .url(devServer)
       .waitForElementVisible('#vue-cloud-manager', 5000)
       .assert.title('vue-cloud-manager')

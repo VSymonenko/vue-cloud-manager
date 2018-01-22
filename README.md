@@ -1,6 +1,6 @@
 # vue-cloud-manager
 
-> Simple file manager. Based on [PWA](https://github.com/vuejs-templates/pwa) template.
+> Simple file manager.
 
 ## Installation
 
@@ -9,20 +9,41 @@
 npm i -S vue-cloud-manager
 ```
 
-## Usage
+## How to use
 
-```javascript
-import Vue from 'vue'
-import vueCloudManager from 'vue-cloud-manager'
+### Direct <script> Include
 
-Vue.use(vueCloudManager)
-```
+> see ```examples/simple```
 
-use tag
 ```html
-<vue-cloud-manager/>
+<div id="app">
+  <vue-cloud-manager/>
+</div>
+
+<script src="vue-cloud-manager.js"></script>
+<script type="text/javascript">
+    let data = { }
+    vueCloudManager.vcmData = data
+</script>
 ```
 
+> ```data``` must be include **root** instance
+
+```
+data = { 
+    id: 0,
+    name: 'root name',
+    createTime: '',
+    createDate: '',
+    modifiedTime: '',
+    modifiedDate: '',
+    owner: '',
+    format: 'root',
+    share: '',
+    data: '',
+    children: []
+}
+```
 
 ## Development
 
@@ -36,8 +57,11 @@ cd vue-cloud-manager
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8888
+# dev server with hot reload at localhost:8888
 npm run dev
+
+# dev server with hot reload and without dashboard
+npm start
 
 # build for production with minification
 npm run build
