@@ -1,0 +1,71 @@
+$primary-color: #6B4FA4;
+$bg-color: white;
+
+#vcm-history {
+  display: flex;
+  padding: 5px;
+  margin: 0;
+  background: $bg-color;
+  flex: 1 6 20%;
+  order: 3;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.vcm-card {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.vcm-tabs-button {
+  background-color: inherit;
+  width: 100%;
+  border: 10px;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  &.vcm-active,
+    &:focus {
+      color: $primary-color;
+      border-bottom: 3px solid $primary-color;
+  }
+}
+.vcm-action-button {
+  background-color: inherit;
+  text-align: left;
+  width: 100%;
+  border: 10px;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  &:hover {
+    overflow: visible;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    span.btnText {
+      overflow: visible;
+    }
+  }
+}
+.vcm-card-history {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.slide-fade-enter-active {
+  transition: all .5s ease;
+}
+.slide-fade-leave-active {
+  transition: all cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(20px);
+  opacity: 0;
+}

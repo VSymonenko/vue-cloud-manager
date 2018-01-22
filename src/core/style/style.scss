@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  src: 'http://fonts.googleapis.com/css?family=Roboto'
+}
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+@media all and (max-width: 640px) {
+  #vue-cloud-manager main {
+    flex-direction: column;
+  }
+  .vcm-tree {
+    display: none;
+  }
+  main #vcm-history {
+    display: none;
+  }
+}
