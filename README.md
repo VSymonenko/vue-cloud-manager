@@ -11,7 +11,7 @@ npm i -S vue-cloud-manager
 * **CDN** version
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vue-cloud-manager@0.0.9/dist/vue-cloud-manager.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-cloud-manager@0.0.7/dist/vue-cloud-manager.js"></script>
 ```
 
 ## How to use

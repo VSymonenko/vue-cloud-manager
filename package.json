@@ -1,6 +1,6 @@
 {
   "name": "vue-cloud-manager",
-  "version": "0.0.9",
+  "version": "0.0.7",
   "description": "Simple file manager.",
   "author": "Volodymyr Symonenko",
   "main": "dist/vue-cloud-manager.js",

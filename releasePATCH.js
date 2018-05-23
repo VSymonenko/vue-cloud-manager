@@ -188,7 +188,7 @@ success = () => {
 
 publish = async () => {
   await start()
-  // await test()
+  await test()
   await updatePackageVersion()
   await updateCDNversion()
   await gitAdd()
