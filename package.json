@@ -1,6 +1,6 @@
 {
   "name": "vue-cloud-manager",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "Simple file manager.",
   "author": "Volodymyr Symonenko",
   "main": "dist/vue-cloud-manager.js",
@@ -16,7 +16,8 @@
     "unit": "cross-env BABEL_ENV=test mocha-webpack --webpack-config build/webpack.test.conf.js --require test/unit/setup.js test/unit/**/*.spec.js",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
+    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
+    "release": "node releasePATCH.js"
   },
   "dependencies": {
     "vue": "^2.5.16",

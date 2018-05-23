@@ -1,19 +1,22 @@
 require('babel-register')
-var config = require('../../config')
+const config = require('../../config')
+const serverPath = require('selenium-server').path
+const webdriverChromeDriver = require('chromedriver').path
 
 // http://nightwatchjs.org/gettingstarted#settings-file
 module.exports = {
   src_folders: ['test/e2e/specs'],
   output_folder: 'test/e2e/reports',
   custom_assertions_path: ['test/e2e/custom-assertions'],
-
   selenium: {
+    log_path: false,
+    publicPath: '',
     start_process: true,
-    server_path: require('selenium-server').path,
+    server_path: serverPath,
     host: '127.0.0.1',
     port: 4444,
     cli_args: {
-      'webdriver.chrome.driver': require('chromedriver').path
+      'webdriver.chrome.driver': webdriverChromeDriver
     }
   },
 
