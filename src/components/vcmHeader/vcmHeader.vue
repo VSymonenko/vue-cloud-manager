@@ -109,10 +109,8 @@ export default {
           }
           break
         case 'open':
-          const openElement = this.contentBuffer.element
           if (openItem.format === 'folder') {
             this.cleanSelection('.vcm-tree-folder')
-            openElement.classList.add('toggleBtn')
             this.setTreeContent(openItem)
             this.$eventsVCM.$emit('select-folder' + openItem.id)
             this.cleanSelection('.vcm-content-folder')
