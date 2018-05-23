@@ -83,4 +83,4 @@ npm test
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2017 VSymonenko
+Copyright (c) 2017-2018 VSymonenko
